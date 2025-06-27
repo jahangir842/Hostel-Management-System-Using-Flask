@@ -38,13 +38,19 @@ login_manager.login_view = 'admin_login'
 migrate = Migrate(app, db)
 
 def create_tables():
-    db.create_all()
-    for i in range(1, 9):
-        if not Room.query.filter_by(room_number=i).first():
-            room = Room(room_number=i)
-            db.session.add(room)
-    db.session.commit()
-    
+    with app.app_context():
+        db.create_all()
+        for i in range(1, 9):
+            if not Room.query.filter_by(room_number=i).first():
+                room = Room(room_number=i)
+                db.session.add(room)
+        db.session.commit()
+
+# Create tables on startup in development
+if os.environ.get('FLASK_ENV') != 'production':
+    with app.app_context():
+        create_tables()
+
 @login_manager.user_loader
 def load_user(user_id):
     return Admin.query.get(int(user_id))
@@ -623,10 +629,8 @@ def delete_student(student_id):
     return redirect(url_for('students'))
 
 if __name__ == '__main__':
-    with app.app_context():
-        create_tables()
     app.run(debug=False)
 
-# Handler for serverless environments like Vercel
-def handler(event, context):
+# This is needed for Vercel serverless deployment
+def create_app():
     return app
