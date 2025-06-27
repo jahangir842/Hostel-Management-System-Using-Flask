@@ -1,4 +1,5 @@
 from app import app
 
 # This is needed for Vercel serverless deployment
-handler = app.wsgi_app 
+def handler(request, context):
+    return app 
