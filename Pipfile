@@ -5,12 +5,15 @@ name = "pypi"
 
 [packages]
 flask = "*"
-flask-wtf = "*"
+bcrypt = "*"
 flask-migrate = "*"
 flask-sqlalchemy = "*"
-bcrypt = "*"
+flask-wtf = "*"
 flask-login = "*"
 flask-bcrypt = "*"
+reportlab = "*"
+pandas = "*"
+openpyxl = "*"
 
 [dev-packages]
 

@@ -20,7 +20,7 @@ from flask_wtf.csrf import CSRFProtect, validate_csrf, CSRFError
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_secret_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///hostel.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///hostel.db')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['PERMANENT_SESSION_LIFETIME'] = 1800  # 30 minutes
 app.config['WTF_CSRF_ENABLED'] = True
@@ -622,7 +622,11 @@ def delete_student(student_id):
         flash(f'Error deleting student: {str(e)}', 'danger')
     return redirect(url_for('students'))
 
-if __name__ == '__main__':  
+if __name__ == '__main__':
     with app.app_context():
         create_tables()
-    app.run(debug=True,port=5051)
+    app.run(debug=False)
+
+# Handler for serverless environments like Vercel
+def handler(event, context):
+    return app

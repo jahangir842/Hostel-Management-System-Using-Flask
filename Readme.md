@@ -19,6 +19,9 @@ This is a Flask-based web application for managing a hostel. It includes functio
 - [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
 - [SQLite](https://www.sqlite.org/)
 - [Pipenv](https://pipenv.pypa.io/en/latest/)
+- [ReportLab](https://www.reportlab.com/)
+- [Pandas](https://pandas.pydata.org/)
+- [OpenPyXL](https://openpyxl.readthedocs.io/)
 
 ## Recommended Dev Tools
 
@@ -27,6 +30,8 @@ This is a Flask-based web application for managing a hostel. It includes functio
 
 ## Setup and Installation
 
+### Option 1: Using Pipenv (Recommended)
+
 1. Clone the repository:
 
    ```bash
@@ -34,23 +39,22 @@ This is a Flask-based web application for managing a hostel. It includes functio
    cd Hostel-Management-System-Using-Flask
    ```
 
-2. Create a virtual environment and activate it (virtual environment directory name is `.venv`):
-
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
-   ```
-
-3. Install `pipenv` package manager
+2. Install `pipenv` if you don't have it:
 
    ```bash
    pip install pipenv
    ```
 
-4. Install the dependencies:
+3. Install dependencies and create a virtual environment:
 
    ```bash
    pipenv install
+   ```
+
+4. Activate the virtual environment:
+
+   ```bash
+   pipenv shell
    ```
 
 5. Initialize the database:
@@ -67,6 +71,64 @@ This is a Flask-based web application for managing a hostel. It includes functio
    ```
 
 7. Open your browser and navigate to `http://127.0.0.1:5000`.
+
+### Option 2: Using venv and pip
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/Hostel-Management-System-Using-Flask.git
+   cd Hostel-Management-System-Using-Flask
+   ```
+
+2. Create a virtual environment and activate it:
+
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
+   ```
+
+3. Install all the dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   If you encounter any missing module errors, install them individually:
+   
+   ```bash
+   pip install reportlab flask-migrate flask-sqlalchemy flask-wtf flask-login flask-bcrypt pandas openpyxl
+   ```
+
+4. Initialize the database:
+
+   ```bash
+   flask db init
+   flask db upgrade
+   ```
+
+5. Run the application:
+
+   ```bash
+   flask run
+   ```
+
+6. Open your browser and navigate to `http://127.0.0.1:5000`.
+
+## Deployment
+
+This application can be deployed to Vercel using GitHub Actions for continuous deployment. For detailed instructions, see the [DEPLOYMENT.md](DEPLOYMENT.md) file.
+
+### Quick Deployment Steps:
+
+1. Fork this repository
+2. Set up a Vercel account and get your API tokens
+3. Add your Vercel tokens as GitHub secrets
+4. Push to your main branch to trigger automatic deployment
+
+## Troubleshooting
+
+If you encounter errors like "No module named 'reportlab'" or "No such command 'db'", make sure you have installed all required dependencies as shown in step 3 of Option 2.
 
 ## Application Structure
 
